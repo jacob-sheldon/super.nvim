@@ -1,9 +1,0 @@
-# Machine-specific overrides (do not commit real secrets)
-
-# Example proxy for Codex CLI
-# export HTTPS_PROXY=http://127.0.0.1:7897
-# alias codex='HTTPS_PROXY=http://127.0.0.1:7897 codex'
-# alias codex-app='HTTPS_PROXY=http://127.0.0.1:7897 open -a Codex'
-
-# Example private API key
-# export OPENAI_API_KEY="your-key"

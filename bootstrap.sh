@@ -2,7 +2,6 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 log() {
   printf '[bootstrap] %s\n' "$*"
@@ -41,30 +40,9 @@ fi
 log "install/update Homebrew packages"
 brew bundle --file "$DOTFILES_DIR/Brewfile"
 
-if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-  log "install oh-my-zsh"
-  RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c \
-    "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-fi
-
 link_path "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 link_path "$DOTFILES_DIR/tmux" "$HOME/.config/tmux"
-link_path "$DOTFILES_DIR/zshrc" "$HOME/.zshrc"
 link_path "$DOTFILES_DIR/gitconfig" "$HOME/.gitconfig"
-
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
-  mkdir -p "$ZSH_CUSTOM_DIR/plugins"
-  if [[ ! -d "$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions" ]]; then
-    log "install zsh-autosuggestions"
-    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM_DIR/plugins/zsh-autosuggestions"
-  fi
-  if [[ ! -d "$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting" ]]; then
-    log "install zsh-syntax-highlighting"
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM_DIR/plugins/zsh-syntax-highlighting"
-  fi
-else
-  log "oh-my-zsh not found, skip plugin install"
-fi
 
 if have nvim; then
   log "sync nvim plugins"
@@ -77,4 +55,3 @@ else
 fi
 
 log "done"
-log "optional: create $HOME/.zshrc.local for machine-specific secrets/proxy settings"

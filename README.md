@@ -6,8 +6,6 @@ Portable dotfiles focused on Neovim + tmux workflow across macOS machines.
 
 - `nvim/`: full Neovim config from `~/.config/nvim`
 - `tmux/tmux.conf`: tmux config
-- `zshrc`: shell config (portable `$HOME` paths + `.zshrc.local` hook)
-- `.zshrc.local.example`: local-only override template
 - `gitconfig`: git user config
 - `Brewfile`: required packages
 - `bootstrap.sh`: one-command setup on a new Mac
@@ -34,15 +32,8 @@ cd ~/super.nvim
 ./bootstrap.sh
 ```
 
-4. Optional local-only overrides (recommended for secrets/proxy/tokens):
-
-```bash
-cp .zshrc.local.example ~/.zshrc.local
-```
-
 ## Notes
 
 - Do not sync runtime caches like `~/.local/share/nvim` or `~/.local/state/nvim`.
 - `bootstrap.sh` installs `typescript-language-server` through Mason.
-- `bootstrap.sh` auto-installs oh-my-zsh if missing.
 - Your tmux/nvim keymaps remain in source files here, so migration is git-driven.
